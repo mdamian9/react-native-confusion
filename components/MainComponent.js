@@ -8,14 +8,13 @@ class Main extends Component {
         this.state = {
             dishes: DISHES
         };
-    }
+    };
 
     render() {
-
         return (
             <Menu dishes={this.state.dishes} />
         );
-    }
-}
+    };
+};
 
 export default Main;
