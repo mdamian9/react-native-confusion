@@ -3,6 +3,7 @@ import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import { View, Platform } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
@@ -45,6 +46,16 @@ const ContactNavigator = createStackNavigator(
     }
 );
 
+const AboutNavigator = createStackNavigator(
+    { About: { screen: About } },
+    {
+        navigationOptions: ({ navigation }) => ({
+            headerStyle: { backgroundColor: "#512DA8" },
+            headerTitleStyle: { color: "#fff" }, headerTintColor: "fff"
+        })
+    }
+);
+
 const MainNavigator = createDrawerNavigator(
     {
         Home: {
@@ -66,6 +77,13 @@ const MainNavigator = createDrawerNavigator(
             navigationOptions: {
                 title: 'Contact',
                 drawerLabel: 'Contact'
+            }
+        },
+        About: {
+            screen: AboutNavigator,
+            navigationOptions: {
+                title: 'About',
+                drawerLabel: 'About'
             }
         }
     },
