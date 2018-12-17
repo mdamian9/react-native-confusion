@@ -16,6 +16,14 @@ function RenderDish(props) {
                 <Text style={{ margin: 10 }}>
                     {dish.description}
                 </Text>
+                <Icon
+                    raised
+                    reverse
+                    name={props.favorite ? 'heart' : 'heart-o'}
+                    type='font-awesome'
+                    color='#f50'
+                    onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
+                />
             </Card>
         );
     } else {
@@ -54,8 +62,13 @@ class Dishdetail extends Component {
         super(props);
         this.state = {
             dishes: DISHES,
-            comments: COMMENTS
+            comments: COMMENTS,
+            favorites: []
         };
+    };
+
+    markFavorite(dishId) {
+        this.setState({ favorites: this.state.favorites.concat(dishId) });
     };
 
     static navigationOptions = {
@@ -66,7 +79,10 @@ class Dishdetail extends Component {
         const dishId = this.props.navigation.getParam('dishId', '');
         return (
             <ScrollView>
-                <RenderDish dish={this.state.dishes[+dishId]} />
+                <RenderDish dish={this.state.dishes[+dishId]}
+                    favorite={this.state.favorites.some(el => el === dishId)}
+                    onPress={() => this.markFavorite(dishId)}
+                />
                 <RenderComments comments={this.state.comments.filter((comment) => comment.dishId === dishId)} />
             </ScrollView>
         );
