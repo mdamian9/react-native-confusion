@@ -17,5 +17,5 @@ export const leaders = (state = {
 
         default:
             return state;
-    }
+    };
 };

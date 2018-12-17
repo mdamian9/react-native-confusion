@@ -10,5 +10,5 @@ export const comments = (state = { errMess: null, comments: [] }, action) => {
 
         default:
             return state;
-    }
+    };
 };

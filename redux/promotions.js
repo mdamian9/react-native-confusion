@@ -17,5 +17,5 @@ export const promotions = (state = {
 
         default:
             return state;
-    }
+    };
 };
