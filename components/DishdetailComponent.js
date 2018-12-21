@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'react-native';
-import { Card, Icon } from 'react-native-elements';
+import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
@@ -53,7 +53,13 @@ function RenderComments(props) {
         return (
             <View key={index} style={{ margin: 10 }}>
                 <Text style={{ fontSize: 14 }}>{item.comment}</Text>
-                <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
+                <Rating
+                    
+                    imageSize={20}
+                    readonly
+                    startingValue={item.rating}
+                    style={{ paddingVertical: 10, alignSelf: 'flex-start' }}
+                />
                 <Text style={{ fontSize: 12 }}>{'-- ' + item.author + ', ' + item.date} </Text>
             </View>
         );
@@ -105,10 +111,31 @@ class DishDetail extends Component {
                     visible={this.state.showModal}
                     onRequestClose={() => this.toggleCommentModal()}>
                     <View style={styles.modal}>
-                        <Text style={styles.modalTitle}>Your Comment</Text>
+                        <Rating
+                            showRating
+                            type="star"
+                            startingValue={1}
+                            imageSize={40}
+                            onFinishRating={this.ratingCompleted}
+                            onStartRating={this.ratingStarted}
+                            style={{ paddingVertical: 10 }}
+                        />
+                        <Input
+                            placeholder='Author'
+                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                        />
+                        <Input
+                            placeholder='Comment'
+                            leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
+                        />
                         <Button
                             onPress={() => { this.toggleCommentModal() }}
                             color="#512DA8"
+                            title="Submit"
+                        />
+                        <Button
+                            onPress={() => { this.toggleCommentModal() }}
+                            color="grey"
                             title="Close"
                         />
                     </View>
