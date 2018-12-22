@@ -3,7 +3,7 @@ import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'rea
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { postFavorite } from '../redux/ActionCreators';
+import { postFavorite, postComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -14,7 +14,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    postFavorite: (dishId) => dispatch(postFavorite(dishId))
+    postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
 
 function RenderDish(props) {
@@ -54,7 +55,6 @@ function RenderComments(props) {
             <View key={index} style={{ margin: 10 }}>
                 <Text style={{ fontSize: 14 }}>{item.comment}</Text>
                 <Rating
-                    
                     imageSize={20}
                     readonly
                     startingValue={item.rating}
@@ -81,7 +81,10 @@ class DishDetail extends Component {
         super(props);
         this.state = {
             favorites: [],
-            showModal: false
+            showModal: false,
+            rating: 1,
+            author: '',
+            comment: ''
         };
     };
 
@@ -95,6 +98,15 @@ class DishDetail extends Component {
 
     toggleCommentModal() {
         this.setState({ showModal: !this.state.showModal });
+    };
+
+    handleCommentSubmit() {
+        console.log('Rating: ' + this.state.rating + '\nAuthor: ' + this.state.author + '\nComment: ' + this.state.comment);
+        this.setState({
+            rating: 1,
+            author: '',
+            comment: ''
+        });
     };
 
     render() {
@@ -116,20 +128,22 @@ class DishDetail extends Component {
                             type="star"
                             startingValue={1}
                             imageSize={40}
-                            onFinishRating={this.ratingCompleted}
+                            onFinishRating={(rating) => {this.setState({ rating: rating})}}
                             onStartRating={this.ratingStarted}
                             style={{ paddingVertical: 10 }}
                         />
                         <Input
                             placeholder='Author'
                             leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                            onChangeText={(text) => this.setState({ author: text })} value={this.state.author}
                         />
                         <Input
                             placeholder='Comment'
                             leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
+                            onChangeText={(text) => this.setState({ comment: text })} value={this.state.comment}
                         />
                         <Button
-                            onPress={() => { this.toggleCommentModal() }}
+                            onPress={() => { this.handleCommentSubmit(); this.toggleCommentModal(); }}
                             color="#512DA8"
                             title="Submit"
                         />
