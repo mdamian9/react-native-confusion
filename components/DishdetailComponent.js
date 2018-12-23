@@ -88,6 +88,15 @@ class DishDetail extends Component {
         };
     };
 
+    resetForm() {
+        this.state = {
+            rating: 1,
+            author: '',
+            comment: ''
+        };
+
+    }
+
     markFavorite(dishId) {
         this.props.postFavorite(dishId);
     };
@@ -100,13 +109,8 @@ class DishDetail extends Component {
         this.setState({ showModal: !this.state.showModal });
     };
 
-    handleCommentSubmit() {
-        console.log('Rating: ' + this.state.rating + '\nAuthor: ' + this.state.author + '\nComment: ' + this.state.comment);
-        this.setState({
-            rating: 1,
-            author: '',
-            comment: ''
-        });
+    handleCommentSubmit(dishId, rating, author, comment) {
+        this.props.postComment(dishId, rating, author, comment);
     };
 
     render() {
@@ -128,7 +132,7 @@ class DishDetail extends Component {
                             type="star"
                             startingValue={1}
                             imageSize={40}
-                            onFinishRating={(rating) => {this.setState({ rating: rating})}}
+                            onFinishRating={(rating) => { this.setState({ rating: rating }) }}
                             onStartRating={this.ratingStarted}
                             style={{ paddingVertical: 10 }}
                         />
@@ -143,7 +147,16 @@ class DishDetail extends Component {
                             onChangeText={(text) => this.setState({ comment: text })} value={this.state.comment}
                         />
                         <Button
-                            onPress={() => { this.handleCommentSubmit(); this.toggleCommentModal(); }}
+                            onPress={() => {
+                                this.handleCommentSubmit(
+                                    dishId,
+                                    this.state.rating,
+                                    this.state.author,
+                                    this.state.comment
+                                );
+                                this.toggleCommentModal();
+                                this.resetForm();
+                            }}
                             color="#512DA8"
                             title="Submit"
                         />
