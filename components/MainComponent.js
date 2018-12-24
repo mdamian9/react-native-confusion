@@ -93,8 +93,10 @@ const ContactNavigator = createStackNavigator(
     }
 );
 
-const ReservationNavigator = createStackNavigator(
-    { Reservation: { screen: Reservation } },
+const FavoritesNavigator = createStackNavigator(
+    {
+        Favorites: { screen: Favorites }
+    },
     {
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
@@ -111,10 +113,8 @@ const ReservationNavigator = createStackNavigator(
     }
 );
 
-const FavoritesNavigator = createStackNavigator(
-    {
-        Favorites: { screen: Favorites }
-    },
+const ReservationNavigator = createStackNavigator(
+    { Reservation: { screen: Reservation } },
     {
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
@@ -189,21 +189,6 @@ const MainNavigator = createDrawerNavigator(
                 )
             }
         },
-        Reservation: {
-            screen: ReservationNavigator,
-            navigationOptions: {
-                title: 'Reserve Table',
-                drawerLabel: 'Reserve Table',
-                drawerIcon: ({ tintColor, focused }) => (
-                    <Icon
-                        name='cutlery'
-                        type='font-awesome'
-                        size={24}
-                        iconStyle={{ color: tintColor }}
-                    />
-                ),
-            }
-        },
         Favorites: {
             screen: FavoritesNavigator,
             navigationOptions: {
@@ -212,6 +197,21 @@ const MainNavigator = createDrawerNavigator(
                 drawerIcon: ({ tintColor, focused }) => (
                     <Icon
                         name='heart'
+                        type='font-awesome'
+                        size={24}
+                        iconStyle={{ color: tintColor }}
+                    />
+                ),
+            }
+        },
+        Reservation: {
+            screen: ReservationNavigator,
+            navigationOptions: {
+                title: 'Reserve Table',
+                drawerLabel: 'Reserve Table',
+                drawerIcon: ({ tintColor, focused }) => (
+                    <Icon
+                        name='cutlery'
                         type='font-awesome'
                         size={24}
                         iconStyle={{ color: tintColor }}
