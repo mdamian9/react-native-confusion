@@ -1,9 +1,9 @@
 {
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://yr-9bz.anonymous.react-native-confusion.exp.direct",
-  "packagerNgrokUrl": "https://packager.yr-9bz.anonymous.react-native-confusion.exp.direct",
-  "ngrokPid": 10468,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
-  "expoServerPort": 19000
+  "expoServerPort": null
 }
