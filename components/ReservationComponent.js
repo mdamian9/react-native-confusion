@@ -56,7 +56,9 @@ class Reservation extends Component {
             if (permission.status !== 'granted') {
                 Alert.alert('Permission not granted to show notifications');
             };
-        };
+        } else {
+            console.log('permission granted');
+        }
         return permission;
     };
 
@@ -74,6 +76,7 @@ class Reservation extends Component {
                 color: '#512DA8'
             }
         });
+        console.log("notified");
     };
 
     render() {
