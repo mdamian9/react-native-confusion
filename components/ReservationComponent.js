@@ -39,6 +39,8 @@ class Reservation extends Component {
             ],
             { cancelable: false }
         );
+        console.log(this.state.date);
+        this.addReservationToCalendar(this.state.date);
     };
 
     resetForm() {
@@ -77,6 +79,34 @@ class Reservation extends Component {
             }
         });
         console.log("notified");
+    };
+
+    async obtainCalendarPermission() {
+        let permission = await Permissions.getAsync(Permissions.CALENDAR);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.CALENDAR);
+            if (permission.status !== 'granted') {
+                Alert.alert('Calendar permission not granted');
+            };
+        } else {
+            console.log('permission granted');
+        }
+        return permission;
+    };
+
+    async addReservationToCalendar(date) {
+        await this.obtainCalendarPermission();
+        Calendar.createEventAsync(
+            Calendar.DEFAULT,
+            {
+                title: 'Con Fusion Table Reservation',
+                startDate: new Date(Date.parse(date)),
+                endDate: new Date(Date.parse(date) + (2 * 60 * 60 * 1000)),
+                location: '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong',
+                timeZone: 'Asia/Hong_Kong'
+            }
+        );
+        console.log("Event created");
     };
 
     render() {
