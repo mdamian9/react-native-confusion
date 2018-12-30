@@ -3,7 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Alert } fro
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Calendar } from 'expo';
 
 class Reservation extends Component {
 
