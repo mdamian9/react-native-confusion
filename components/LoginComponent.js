@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
-import { Card, Icon, Input, CheckBox } from 'react-native-elements';
-import { SecureStore } from 'expo';
+import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { Input, CheckBox, Button, Icon } from 'react-native-elements';
+import { SecureStore, Permissions, ImagePicker } from 'expo';
+import { createBottomTabNavigator } from 'react-navigation';
+import { baseUrl } from '../shared/baseUrl';
 
-class Login extends Component {
+class LoginTab extends Component {
 
     constructor(props) {
         super(props);
@@ -11,7 +13,7 @@ class Login extends Component {
             username: '',
             password: '',
             remember: false
-        }
+        };
     };
 
     componentDidMount() {
@@ -28,6 +30,14 @@ class Login extends Component {
 
     static navigationOptions = {
         title: 'Login',
+        tabBarIcon: ({ tintColor }) => (
+            <Icon
+                name='sign-in'
+                type='font-awesome'
+                size={24}
+                iconStyle={{ color: tintColor }}
+            />
+        )
     };
 
     handleLogin() {
@@ -67,7 +77,31 @@ class Login extends Component {
                     <Button
                         onPress={() => this.handleLogin()}
                         title="Login"
-                        color="#512DA8"
+                        icon={
+                            <Icon
+                                name='sign-in'
+                                type='font-awesome'
+                                size={24}
+                                color='white'
+                            />
+                        }
+                        buttonStyle={{ backgroundColor: "#512DA8" }}
+                    />
+                </View>
+                <View style={styles.formButton}>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('Register')}
+                        title="Register"
+                        clear
+                        icon={
+                            <Icon
+                                name='user-plus'
+                                type='font-awesome'
+                                size={24}
+                                color='blue'
+                            />
+                        }
+                        titleStyle={{ color: "blue" }}
                     />
                 </View>
             </View>
@@ -75,22 +109,5 @@ class Login extends Component {
     };
 
 };
-
-const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        margin: 20,
-    },
-    formInput: {
-        margin: 40
-    },
-    formCheckbox: {
-        margin: 40,
-        backgroundColor: null
-    },
-    formButton: {
-        margin: 60
-    }
-});
 
 export default Login;
