@@ -234,7 +234,49 @@ class RegisterTab extends Component {
             </ScrollView>
         );
     };
-    
+
 };
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        margin: 20,
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        margin: 20
+    },
+    image: {
+        margin: 10,
+        width: 80,
+        height: 60
+    },
+    formInput: {
+        margin: 20
+    },
+    formCheckbox: {
+        margin: 20,
+        backgroundColor: null
+    },
+    formButton: {
+        margin: 60
+    }
+});
+
+const Login = createBottomTabNavigator(
+    {
+        Login: LoginTab,
+        Register: RegisterTab
+    },
+    {
+        tabBarOptions: {
+            activeBackgroundColor: '#9575CD',
+            inactiveBackgroundColor: '#D1C4E9',
+            activeTintColor: '#ffffff',
+            inactiveTintColor: 'gray'
+        }
+    }
+);
 
 export default Login;
