@@ -33,6 +33,7 @@ class Reservation extends Component {
                 {
                     text: 'OK', onPress: () => {
                         this.presentLocalNotification(this.state.date);
+                        this.addReservationToCalendar(this.state.date);
                         this.resetForm();
                     }
                 },
@@ -40,7 +41,6 @@ class Reservation extends Component {
             { cancelable: false }
         );
         console.log(this.state.date);
-        this.addReservationToCalendar(this.state.date);
     };
 
     resetForm() {
